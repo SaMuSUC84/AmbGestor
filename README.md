@@ -18,6 +18,11 @@ AMBGESTOR es una aplicación para la gestión de dotaciones de ambulancias, opti
 - **Jakarta Persistence**
 - **Maven**
 - **MySQL**
+  
+## Manual de Usuario
+Para aprender a utilizar **AMBGESTOR**, consulta el manual de usuario en el siguiente enlace:
+
+📖 [Manual de Usuario](https://deepwiki.com/SaMuSUC84/AmbGestor)
 
 ## Instalación
 1. Clona el repositorio:
