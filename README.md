@@ -1,4 +1,5 @@
-# AMBGESTOR
+# AMBGESTOR 
+@author Samuel ALonso
 
 ## Descripción
 AMBGESTOR es una aplicación para la gestión de dotaciones de ambulancias, optimizando la administración y coordinación de recursos médicos.
