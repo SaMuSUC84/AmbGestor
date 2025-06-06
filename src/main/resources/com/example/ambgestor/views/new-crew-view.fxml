@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<!--
+@author Samuel Alonso Viera
+@author Javier Sanchez Alvarado
+@author Domingo Jose Navarro Orihuela
+@author Eduardo Miguel Romero Afonso
+-->
+
+<AnchorPane prefHeight="330.0" prefWidth="600.0" style="-fx-border-color: lightgrey; -fx-border-width: 2px;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.ambgestor.controllers.NewCrewController">
+    <children>
+        <VBox layoutX="26.0" layoutY="27.0" minWidth="700.0" prefHeight="642.0" prefWidth="683.0" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <children>
+            <VBox alignment="BASELINE_CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="200.0" prefWidth="560.0">
+               <children>
+                  <HBox alignment="CENTER" nodeOrientation="LEFT_TO_RIGHT" prefHeight="37.0" prefWidth="650.0">
+                     <children>
+                              <Button fx:id="btnCancelNewCrew" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#onCancelNewCrewClick" style="-fx-background-color: #F74311;" text="X" textFill="WHITE" HBox.hgrow="ALWAYS">
+                           <font>
+                              <Font name="System Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="630.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+                <VBox prefHeight="51.0" prefWidth="537.0" spacing="10.0">
+                    <children>
+                        <Label fx:id="labelSelectConductor" text="Seleccionar conductor" />
+                        <ComboBox fx:id="cmbUserConduct" maxHeight="32.0" minHeight="32.0" minWidth="185.0" onAction="#onConductSelected" prefHeight="32.0" prefWidth="185.0" />
+                    </children>
+                </VBox>
+                <VBox spacing="10.0">
+                    <children>
+                        <HBox spacing="10.0">
+                            <children>
+                                <Label prefWidth="385.0" text="Nombre" />
+                                <Label prefWidth="450.0" text="Apellido" />
+                                <Label prefWidth="450.0" text="Profesión" />
+                            </children>
+                        </HBox>
+                        <HBox spacing="10.0">
+                            <children>
+                                <Label fx:id="lblConductName" minHeight="32.0" prefHeight="32.0" prefWidth="385.0" style="-fx-background-radius: 5px; -fx-background-color: #E6E6E6;">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding></Label>
+                                <Label fx:id="lblConductSurname" minHeight="32.0" prefHeight="32.0" prefWidth="450.0" style="-fx-background-radius: 5px; -fx-background-color: #E6E6E6;">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding></Label>
+                                <Label fx:id="lblConductProf" minHeight="32.0" prefHeight="32.0" prefWidth="450.0" style="-fx-background-radius: 5px; -fx-background-color: #E6E6E6;">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding></Label>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
+            <VBox spacing="10.0">
+               <children>
+                  <Label text="Selecciona sanitario" />
+                  <ComboBox fx:id="cmbUserSanit" maxHeight="32.0" minHeight="32.0" minWidth="185.0" onAction="#onSanitSelected" prefHeight="32.0" prefWidth="185.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ComboBox>
+               </children>
+            </VBox>
+            <VBox spacing="10.0">
+               <children>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label prefWidth="385.0" text="Nombre" />
+                        <Label prefWidth="450.0" text="Apellido" />
+                        <Label prefWidth="450.0" text="Profesión" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="lblSanitName" minHeight="32.0" prefHeight="32.0" prefWidth="385.0" style="-fx-background-radius: 5px; -fx-background-color: #E6E6E6;">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblSanitSurname" minHeight="32.0" prefHeight="32.0" prefWidth="450.0" style="-fx-background-radius: 5px; -fx-background-color: #E6E6E6;">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblSanitProf" minHeight="32.0" prefHeight="32.0" prefWidth="450.0" style="-fx-background-radius: 5px; -fx-background-color: #E6E6E6;">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox spacing="10.0">
+               <children>
+                  <Label text="Selecciona facultativo" />
+                  <ComboBox fx:id="cmbUserFacult" maxHeight="32.0" minHeight="32.0" minWidth="185.0" onAction="#onFacultSelected" prefHeight="32.0" prefWidth="185.0">
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </ComboBox>
+               </children>
+            </VBox>
+            <VBox spacing="10.0">
+               <children>
+                  <HBox spacing="10.0">
+                     <children>
+                        <Label prefWidth="385.0" text="Nombre" />
+                        <Label prefWidth="450.0" text="Apellido" />
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="100.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <Label fx:id="lblFacultName" minHeight="32.0" prefHeight="32.0" prefWidth="385.0" style="-fx-background-radius: 5px; -fx-background-color: #E6E6E6;">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                        <Label fx:id="lblFacultSurname" minHeight="32.0" prefHeight="32.0" prefWidth="450.0" style="-fx-background-radius: 5px; -fx-background-color: #E6E6E6;">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+                <HBox spacing="20.0" style="-fx-background-radius: 5px;">
+                    <children>
+                        <VBox spacing="10.0">
+                            <children>
+                                <Label text="Seleccionar unidad" />
+                                <ComboBox fx:id="cmbUnitCode" maxHeight="32.0" minHeight="32.0" minWidth="132.0" onAction="#onUnitCodeSelected" prefHeight="32.0" prefWidth="170.0" />
+                            </children>
+                        </VBox>
+                  <VBox prefHeight="59.0" prefWidth="92.0" />
+                        <VBox spacing="10.0">
+                            <children>
+                                <Label text="Recurso" />
+                        <Label fx:id="labelUnitName" minHeight="32.0" prefHeight="32.0" prefWidth="348.0" style="-fx-background-radius: 5px; -fx-background-color: #E6E6E6;">
+                           <padding>
+                              <Insets left="10.0" right="10.0" />
+                           </padding>
+                        </Label>
+                            </children>
+                        </VBox>
+                    </children>
+                </HBox>
+                <HBox alignment="BOTTOM_CENTER" nodeOrientation="LEFT_TO_RIGHT" spacing="20.0">
+                    <children>
+                        <Button fx:id="btnSaveNewCrew" maxHeight="32.0" maxWidth="200.0" minHeight="32.0" minWidth="150.0" mnemonicParsing="false" onAction="#onSaveNewCrewClick" prefHeight="32.0" prefWidth="200.0" style="-fx-background-color: BLUE;" text="Guardar" textFill="WHITE" HBox.hgrow="ALWAYS">
+                     <font>
+                        <Font name="System Bold" size="14.0" />
+                     </font></Button>
+                    </children>
+                    <padding>
+                        <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+                    </padding>
+                    <VBox.margin>
+                        <Insets />
+                    </VBox.margin>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="15.0" left="25.0" right="25.0" top="20.0" />
+            </padding>
+        </VBox>
+    </children>
+</AnchorPane>

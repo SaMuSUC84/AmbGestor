@@ -1,0 +1,33 @@
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DT//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+
+        <!-- Conexión a MySQL -->
+        <property name="hibernate.connection.driver_class">com.mysql.cj.jdbc.Driver</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/ambgestor_db?allowPublicKeyRetrieval=true&amp;useSSL=true&amp;serverTimezone=UTC</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.connection.password">1234</property>
+
+        <!-- Dialecto de MySQL -->
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</property>
+
+        <!-- Mostrar consultas SQL -->
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
+
+        <!-- Manejo del esquema -->
+        <property name="hibernate.hbm2ddl.auto">validate</property>
+
+        <!-- Clases anotadas -->
+        <property name="hibernate.archive.autodetection">class, hbm</property>
+
+        <!-- Aquí se incluirán las clases Entity -->
+        <mapping class="com.example.ambgestor.models.entities.AmbCrewModel"/>
+        <mapping class="com.example.ambgestor.models.entities.AmbProfModel"/>
+        <mapping class="com.example.ambgestor.models.entities.AmbUnitModel"/>
+        <mapping class="com.example.ambgestor.models.entities.AmbUserModel"/>
+
+    </session-factory>
+</hibernate-configuration>
