@@ -19,6 +19,9 @@ import javafx.util.StringConverter;
 
 import java.util.List;
 
+/*
+ * @author Samuel Alonso Viera
+ */
 public class UnitController {
 
     private AmbUnitDAO _objUnitDAO;

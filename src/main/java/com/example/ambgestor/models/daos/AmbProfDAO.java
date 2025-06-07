@@ -1,7 +1,7 @@
 package com.example.ambgestor.models.daos;
 
 import com.example.ambgestor.models.entities.AmbProfModel;
-import com.example.ambgestor.models.entities.AmbUserModel;
+
 import com.example.ambgestor.models.repositories.AmbProfRepository;
 import com.example.ambgestor.util.HibernateUtil;
 import org.hibernate.HibernateException;
@@ -12,6 +12,9 @@ import org.jboss.logging.Logger;
 
 import java.util.List;
 
+/*
+ * @author Samuel Alonso Viera
+ */
 public class AmbProfDAO implements AmbProfRepository {
 
     private static final Logger logger = Logger.getLogger(AmbUserDAO.class);

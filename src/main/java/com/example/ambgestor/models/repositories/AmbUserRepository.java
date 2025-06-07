@@ -5,6 +5,9 @@ import com.example.ambgestor.models.entities.AmbUserModel;
 
 import java.util.List;
 
+/*
+ * @author Samuel Alonso Viera
+ */
 public interface AmbUserRepository {
 
     AmbUserModel saveUser (AmbUserModel userapp);

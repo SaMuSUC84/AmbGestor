@@ -4,6 +4,9 @@ import javax.persistence.*;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
+/*
+ * @author Samuel Alonso Viera
+ */
 @Entity
 @Table(name = "user_ag")
 public class AmbUserModel {

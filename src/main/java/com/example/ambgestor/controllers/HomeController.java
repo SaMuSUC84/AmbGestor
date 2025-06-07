@@ -117,7 +117,6 @@ public class HomeController {
 
         try{
             new CsvGenerator().saveFileCSV();
-            new Alerts("Dotaciones exportadas correctamente", Alert.AlertType.INFORMATION);
 
         } catch (IOException exc) {
             new Alerts("Error al exportar las dotaciobes { "+ exc.getMessage()+" }", Alert.AlertType.ERROR);

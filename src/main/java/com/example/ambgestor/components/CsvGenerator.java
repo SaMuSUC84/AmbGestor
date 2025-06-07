@@ -2,6 +2,7 @@ package com.example.ambgestor.components;
 
 import com.example.ambgestor.models.daos.AmbCrewDAO;
 import com.example.ambgestor.models.entities.AmbCrewModel;
+import javafx.scene.control.Alert;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -12,6 +13,9 @@ import java.io.OutputStreamWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
+/*
+ * @author Samuel Alonso Viera
+ */
 public class CsvGenerator {
 
     public void saveFileCSV() throws IOException {
@@ -41,6 +45,9 @@ public class CsvGenerator {
                                     + isDoctor + ";"
                                     + ambcrew.getUnitDota().getUnitName()+"\n");
                 }
+                new Alerts("Dotaciones exportadas correctamente", Alert.AlertType.INFORMATION);
+            } catch (Exception e) {
+                throw new RuntimeException(e);
             }
 
         }

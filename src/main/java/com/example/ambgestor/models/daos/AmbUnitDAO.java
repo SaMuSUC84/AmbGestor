@@ -9,6 +9,9 @@ import org.hibernate.Transaction;
 import org.jboss.logging.Logger;
 import java.util.List;
 
+/*
+ * @author Samuel Alonso Viera
+ */
 public class AmbUnitDAO implements AmbUnitRepository {
 
     private static final Logger logger = Logger.getLogger(AmbUserDAO.class);

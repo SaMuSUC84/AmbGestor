@@ -4,6 +4,9 @@ import com.example.ambgestor.models.entities.AmbCrewModel;
 
 import java.util.List;
 
+/*
+ * @author Samuel Alonso Viera
+ */
 public interface AmbCrewRepository {
     AmbCrewModel findCrewById(int id);
     List<AmbCrewModel> getAllCrews();

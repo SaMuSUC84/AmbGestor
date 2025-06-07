@@ -1,9 +1,12 @@
 package com.example.ambgestor.models.entities;
 
-import com.example.ambgestor.models.daos.AmbUserDAO;
+
 
 import javax.persistence.*;
 
+/*
+ * @author Samuel Alonso Viera
+ */
 @Entity
 @Table(name = "dota_ag")
 public class AmbCrewModel {
