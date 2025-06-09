@@ -103,10 +103,10 @@ public class AmbCrewModel {
     public String toCrewString() {
         return "Dotación {" +
                 "ID=" + id +
-                ", conductor = " + conductdotaDa +
-                ", sanitario = " + sanitdotaDa +
-                ", facultativo = " + facultdotaDa +
-                ", unidad = " + unitdotaDa +
+                ", conductor = " + conductdotaDa.getName() +
+                ", sanitario = " + sanitdotaDa.getName() +
+                ", facultativo = " + isDoctor() +
+                ", unidad = " +unitdotaDa.getUnitCode()+" - "+ unitdotaDa.getUnitName() +
                 "' }'";
     }
 }

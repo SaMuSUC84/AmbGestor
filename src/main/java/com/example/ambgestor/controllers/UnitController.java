@@ -18,6 +18,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 import java.util.List;
+import java.util.Optional;
 
 /*
  * @author Samuel Alonso Viera
@@ -50,7 +51,7 @@ public class UnitController {
     @FXML
     public void onCmbUnitSelect(ActionEvent event) {
         AmbUnitModel unit = cmbUnit.getSelectionModel().getSelectedItem();
-        txtUnitCode.setText(unit.getUnitCode()+"");
+        txtUnitCode.setText(unit.getUnitCode().toString());
         cmbunitName.setValue(unit.getUnitName());
         formatTextImageColor(unit);
     }
@@ -73,13 +74,14 @@ public class UnitController {
     // Métodoo botón Modificar
     @FXML
     public void onModifyUnitClick(ActionEvent event) {
-        if(validForm()) {
-            AmbUnitModel originalUnit = cmbUnit.getSelectionModel().getSelectedItem();
+        AmbUnitModel originalUnit = cmbUnit.getSelectionModel().getSelectedItem();
 
-            if (originalUnit == null) {
-                new Alerts("Debe seleccionar una unidad para modificar.", Alert.AlertType.WARNING);
-                return;
-            }
+        if (originalUnit == null) {
+            new Alerts("Debe seleccionar una unidad para modificar.", Alert.AlertType.WARNING);
+            return;
+        }
+        if(validForm()) {
+
             AmbUnitModel modifyUnit = new AmbUnitModel();
             setSaveOrModifyUnit(modifyUnit);
             formatTextImageColor(modifyUnit);
@@ -100,23 +102,37 @@ public class UnitController {
     public void onDeletedUnitClick(ActionEvent event) {
 
         AmbUnitModel deletedUnit = cmbUnit.getSelectionModel().getSelectedItem();
+        if(deletedUnit == null){
+            new Alerts("No se ha seleccionado una unidad para borrar", Alert.AlertType.WARNING);
+            return;
+        }
+
         int deleteCode = (deletedUnit != null) ?
                 deletedUnit.getUnitCode() :
                 Integer.parseInt(txtUnitCode.getText());
 
-        if (deletedUnit != null) {
-            _objUnitDAO.deleteUnit(deleteCode);
 
-            new Alerts("Unidad borrada correctamente", Alert.AlertType.INFORMATION);
 
-            resetFormatImageColor();
-            initUnitComboBox();
-            initUnitNameComboBox();
+        Alert dataConfirm = new Alert(Alert.AlertType.CONFIRMATION);
+        dataConfirm.setTitle("Confirmación");
+        dataConfirm.setHeaderText( "¿Estás seguro de que deseas eliminar esta dotación?");
+        dataConfirm.setContentText(deletedUnit.toUnitString());
+        Optional<ButtonType> result = dataConfirm.showAndWait();
 
-        } else {
-            new Alerts("No se ha seleccionado una unidad para borrar", Alert.AlertType.WARNING);
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try{
+                _objUnitDAO.deleteUnit(deleteCode);
+                new Alerts("Unidad borrada correctamente", Alert.AlertType.INFORMATION);
+                resetFormatImageColor();
+                initUnitComboBox();
+                initUnitNameComboBox();
+
+            } catch (Exception e) {
+                new Alerts("Error al eliminar la unidad: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+        }else{
+            new Alerts("Eliminación cancelada", Alert.AlertType.INFORMATION);
         }
-
     }
 
     // Método para el botón Cancelar
@@ -210,12 +226,11 @@ public class UnitController {
     @FXML
     private void resetFormatImageColor(){
 
+        resetComboBox(cmbUnit,"Modificar o Eliminar");
         txtImgUnitCode.setText("");
         txtImgUnitName.setText("");
-        txtUnitCode.clear();
-
-        resetComboBox(cmbUnit,"Modificar o Eliminar");
         resetComboBox(cmbunitName,"Recurso...");
+        txtUnitCode.clear();
     }
 
     /*

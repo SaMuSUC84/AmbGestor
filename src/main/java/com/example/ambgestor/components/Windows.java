@@ -6,6 +6,7 @@ import com.example.ambgestor.models.entities.AmbCrewModel;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -21,25 +22,27 @@ import static javafx.stage.StageStyle.UNDECORATED;
  */
 public class Windows {
 
+    private Stage _stage;
     private double mouseX = 0;
     private double mouseY = 0;
 
     public Windows(Stage stage, String viewName, String title) {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+        this._stage =  stage;
 
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ambgestor/views/"+viewName+".fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
-            stage.setScene(scene);
-            stage.setTitle(title);
-            stage.showAndWait();
+            _stage.setScene(scene);
+            _stage.setTitle(title);
+            _stage.showAndWait();
 
             /*
              * Modo de centrar las ventanas que se generen en la pantalla
              */
-            stage.setX((screenSize.getWidth() - stage.getWidth()) / 2);
-            stage.setY((screenSize.getHeight() - stage.getHeight()) / 2);
+            _stage.setX((screenSize.getWidth() - _stage.getWidth()) / 2);
+            _stage.setY((screenSize.getHeight() - _stage.getHeight()) / 2);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,22 +57,23 @@ public class Windows {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ambgestor/views/"+viewName+".fxml"));;
                 Parent root = loader.load();
                 Scene scene = new Scene(root);
+                this._stage =  stage;
 
                 ModifyCrewController controller = loader.getController();
                 controller.modifyCrew(ambCrewModel);
 
-                stage = new Stage();
-                modalShow(stage, scene);
+                _stage = new Stage();
+                modalShow(_stage, scene);
 
-                stage.setScene(scene);
-                stage.setTitle(title);
-                stage.showAndWait();
+                _stage.setScene(scene);
+                _stage.setTitle(title);
+                _stage.showAndWait();
 
                 /*
                  * Modo de centrar las ventanas que se generen en la pantalla
                  */
-                stage.setX((screenSize.getWidth() - stage.getWidth()) / 2);
-                stage.setY((screenSize.getHeight() - stage.getHeight()) / 2);
+                _stage.setX((screenSize.getWidth() - _stage.getWidth()) / 2);
+                _stage.setY((screenSize.getHeight() - _stage.getHeight()) / 2);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -83,11 +87,12 @@ public class Windows {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/example/ambgestor/views/"+viewName+".fxml"));
                 Parent root = loader.load();
                 Scene scene = new Scene(root);
+                this._stage =  stage;
 
-                modalShow(stage, scene);
+                modalShow(_stage, scene);
 
-                stage.setScene(scene);
-                stage.show();
+                _stage.setScene(scene);
+                _stage.show();
 
             }
 
@@ -99,6 +104,7 @@ public class Windows {
     // Método para hacer los modales sin decoracion del sistema
 
     private void modalShow(Stage stage, Scene scene) {
+        this._stage =  stage;
         stage.initStyle(UNDECORATED);
         scene.setOnMousePressed(event -> {
             mouseX = event.getSceneX();
@@ -111,12 +117,13 @@ public class Windows {
         });
 
         scene.setOnMouseDragged(event -> {
-            stage.setX(event.getScreenX() - mouseX);
-            stage.setY(event.getScreenY() - mouseY);
+            _stage.setX(event.getScreenX() - mouseX);
+            _stage.setY(event.getScreenY() - mouseY);
         });
     }
 
 
-
-
+    public Stage getStage() {
+        return this._stage;
+    }
 }

@@ -17,6 +17,7 @@ import javafx.util.Callback;
 import javafx.util.StringConverter;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -74,9 +75,14 @@ public class UserController {
     // Método botón Modificar
     @FXML
     public void onModifyUserClick(ActionEvent event) {
+        AmbUserModel modifyUser = cmbUsers.getSelectionModel().getSelectedItem();
+
+        if(modifyUser == null){
+            new Alerts("No se ha seleccionado un usuario para modificar", Alert.AlertType.WARNING);
+            return;
+        }
 
         if (validForm()){
-            AmbUserModel modifyUser = cmbUsers.getSelectionModel().getSelectedItem();
             setSaveOrModifyUser(modifyUser);
 
             this._objUserDAO.updateUser(modifyUser);
@@ -92,12 +98,29 @@ public class UserController {
 
         AmbUserModel deletedUser = cmbUsers.getSelectionModel().getSelectedItem();
 
-        if (deletedUser != null && deletedUser.getId() != null) {
-            _objUserDAO.deleteUser(deletedUser.getId());
-            new Alerts("Usuario borrado correctamente", Alert.AlertType.INFORMATION);
-            closeWindow(event);
-        } else {
+        if(deletedUser == null){
             new Alerts("No se ha seleccionado un usuario para borrar", Alert.AlertType.WARNING);
+            return;
+        }
+
+        Alert dataConfirm = new Alert(Alert.AlertType.CONFIRMATION);
+        dataConfirm.setTitle("Confirmación");
+        dataConfirm.setHeaderText( "¿Estás seguro de que deseas eliminar esta dotación?");
+        dataConfirm.setContentText(deletedUser.toUserString());
+        Optional<ButtonType> result = dataConfirm.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try{
+                if (deletedUser.getId() != null) {
+                    _objUserDAO.deleteUser(deletedUser.getId());
+                    new Alerts("Usuario borrado correctamente", Alert.AlertType.INFORMATION);
+                    closeWindow(event);
+                }
+            } catch (Exception e) {
+                new Alerts("Error al eliminar el usuario: " + e.getMessage(), Alert.AlertType.ERROR);
+            }
+        }else{
+            new Alerts("Eliminación cancelada", Alert.AlertType.INFORMATION);
         }
     }
 

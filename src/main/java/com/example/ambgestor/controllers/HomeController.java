@@ -9,6 +9,7 @@ import com.example.ambgestor.models.daos.AmbUserDAO;
 import com.example.ambgestor.models.entities.AmbCrewModel;
 import com.example.ambgestor.models.entities.AmbUnitModel;
 import com.example.ambgestor.models.entities.AmbUserModel;
+import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /*
  * @author Samuel Alonso Viera
@@ -75,9 +77,12 @@ public class HomeController {
     // Método para insertar dotaciones
     @FXML
     private void onInsertDota(ActionEvent e) {
+        Windows insertView = new Windows(new Stage(),true,"new-crew-view", "Nueva Dotación");
+        insertView.getStage().setOnHidden(event -> {
+            showAllDotas();
+        });
 
-        new Windows(new Stage(),true,"new-crew-view", "Nueva Dotación");
-        showAllDotas();
+
     }
 
     // Método para modificar dotaciones
@@ -101,12 +106,25 @@ public class HomeController {
     private void onDeleteDota(ActionEvent e) {
 
         AmbCrewModel ambcrewSelected = tableDota.getSelectionModel().getSelectedItem();
-        if (ambcrewSelected != null && ambcrewSelected.getId() != null) {
-            _objCrewDAO.deleteCrew(ambcrewSelected.getId());
-            new Alerts("Dotación borrada correctamente", Alert.AlertType.INFORMATION);
-
-        }else{
+        if (ambcrewSelected == null || ambcrewSelected.getId() == null) {
             new Alerts("No se ha seleccionado una dotación para borrar", Alert.AlertType.WARNING);
+            return;
+        }
+        Alert dataConfirm = new Alert(Alert.AlertType.CONFIRMATION);
+        dataConfirm.setTitle("Confirmación");
+        dataConfirm.setHeaderText( "¿Estás seguro de que deseas eliminar esta dotación?");
+        dataConfirm.setContentText(ambcrewSelected.toCrewString());
+        Optional<ButtonType> result = dataConfirm.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            try {
+                _objCrewDAO.deleteCrew(ambcrewSelected.getId());
+                new Alerts("Dotación borrada correctamente", Alert.AlertType.INFORMATION);
+            } catch (Exception ex) {
+                new Alerts("Error al eliminar la dotación: " + ex.getMessage(), Alert.AlertType.ERROR);
+            }
+        } else {
+            new Alerts("Eliminación cancelada", Alert.AlertType.INFORMATION);
         }
         showAllDotas();
     }
@@ -119,7 +137,7 @@ public class HomeController {
             new CsvGenerator().saveFileCSV();
 
         } catch (IOException exc) {
-            new Alerts("Error al exportar las dotaciobes { "+ exc.getMessage()+" }", Alert.AlertType.ERROR);
+            new Alerts("Error al exportar las dotaciones { "+ exc.getMessage()+" }", Alert.AlertType.ERROR);
         }
     }
 
@@ -159,10 +177,11 @@ public class HomeController {
     // Método que muestra los datos en la tabla
     @FXML
     private void showAllDotas(){
+        // Obtener los datos desde el DAO y agregarlos a la tabla
+        List<AmbCrewModel> getAllCrews = _objCrewDAO.getAllCrews();
+        ObservableList<AmbCrewModel> allCrews = FXCollections.observableArrayList(getAllCrews);
 
-        ObservableList<AmbCrewModel> allCrews = FXCollections.observableArrayList();
-
-        // Modificamos las tablas par aque presenten los datos como queremos.
+        // Modificamos las tablas para aque presenten los datos como queremos.
         this.columnUnitCode.setCellValueFactory(data ->{
            AmbUnitModel unitCode = data.getValue().getUnitDota();
            String code = unitCode.getUnitCode().toString();
@@ -185,11 +204,8 @@ public class HomeController {
             return new SimpleStringProperty(unitCrew.getUnitName());
         });
 
-        // Obtener los datos desde el DAO y agregarlos a la tabla
-        List<AmbCrewModel> getAllCrews = _objCrewDAO.getAllCrews();
-
-        allCrews.addAll(getAllCrews);
         this.tableDota.setItems(allCrews);
+        this.tableDota.refresh();
     }
 
     //  Método para que modifique los Labels de la vista
